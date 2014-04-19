@@ -1,0 +1,23 @@
+{
+  "name": "clonn",
+  "version": "0.0.0",
+  "description": "slack for node ver",
+  "main": "lib/slack.coffee",
+  "scripts": {
+    "test": "node_modules/.bin/mocha ./test",
+    "start": "node_modules/.bin/coffee index.coffee"
+  },
+  "keywords": [
+    "slack",
+    "node",
+    "sdk"
+  ],
+  "author": "Caesar Chi",
+  "license": "BSD",
+  "dependencies": {
+    "coffee-script": "~1.7.1",
+    "mocha": "~1.18.2",
+    "should": "~3.3.1",
+    "request": "~2.34.0"
+  }
+}
