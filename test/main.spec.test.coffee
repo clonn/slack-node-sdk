@@ -1,25 +1,23 @@
 should = require "should"
-slack = require "../index"
+Slack = require "../index"
 
-domain = ""
+domain = "slack-node"
+webhookToken = "ROHgstANbsFAUA5dHHI5JONu"
+
 describe 'slack webhook part', ->
-  doamin = "slack-node"
-  webhookToken = "ROHgstANbsFAUA5dHHI5JONu"
 
-  slackWebhook = slack.webhook
-    domain: domain
-    token: webhookToken
+  slack = new Slack webhookToken, domain
 
-  it ',should send a correct response', ->
+  it ',should send a correct response', (done) ->
 
-    slackWebhook.should.be.an.Object
+    slack.should.be.an.Object
     done()
 
-  it ',should send a correct response', ->
-    slackWebhook.post
+  it ',should send a correct response', (done) ->
+    slack.post
       channel: "#general"
       username: "webhookbot"
       text: "This is posted to #general and comes from a bot named webhookbot."
     , (err, response) ->
-      response.should.be.an.Object
+      response.should.be.ok.and.a.String
       done()

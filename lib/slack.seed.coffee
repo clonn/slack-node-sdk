@@ -1,21 +1,28 @@
 request = require "request"
 
-webhook = (domain, token) ->
-  @domain = domain
-  @token = token
+class Slack
+  constructor: (@token, @domain) ->
+    @apiMode = unless @domain then true else false
 
-  sendFields = (options, callback) ->
+  composeUrl: =>
+    if @apiMode
+      #retrun api url
+      return "https://#{@domain}.slack.com/services/hooks/incoming-webhook?token=#{@token}"
+    else
+      #return web hook mode
+      return "https://#{@domain}.slack.com/services/hooks/incoming-webhook?token=#{@token}"
+
+  post: (options, callback) =>
+    url = @composeUrl()
+
     request.post
-      url: "https://#{@domain}.slack.com/services/hooks/incoming-webhook?token=#{@token}"
+      url: url 
       body: JSON.stringify
         channel: options.channel
         text: options.text
         username: options.username 
     , (err, body, response) ->
       callback err, response
+  
 
-  return {
-    post: sendFields
-  }
-
-module.exports.webhook = webhook
+module.exports = Slack 
