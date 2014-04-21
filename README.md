@@ -15,6 +15,8 @@ At first, you have to apply [Slack webhook](https://my.slack.com/services/new/in
 
 code example,
 
+    var Slack = require('slack-node');
+
     domain = "--your-slack-subdomain--";
     webhookToken = "--your-slack-webhook--";
 
@@ -38,6 +40,7 @@ The method, please referece [Slack API page](https://api.slack.com/)
 
 example code,
 
+    var Slack = require('slack-node');
     apiToken = "-- api token --";
 
     slack = new Slack(apiToken);
