@@ -1,13 +1,12 @@
 {
   "name": "slack-node",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "slack for node verision, full support",
   "main": "lib/index.js",
   "scripts": {
-    "preinstall": "npm install coffee-script",
-    "install": "node_modules/.bin/cake build",
-    "test": "node_modules/.bin/mocha ./lib/test",
-    "start": "node_modules/.bin/coffee index.coffee"
+    "install": "./node_modules/.bin/cake build",
+    "test": "./node_modules/.bin/mocha ./lib/test",
+    "start": "./node_modules/.bin/coffee index.coffee"
   },
   "keywords": [
     "slack",
@@ -15,11 +14,13 @@
     "sdk"
   ],
   "author": "Caesar Chi",
-  "license": "BSD",
+  "license": "MIT",
   "dependencies": {
+    "request": "~2.34.0"
+  },
+  "devDependency": {
     "coffee-script": "~1.7.1",
     "mocha": "~1.18.2",
-    "should": "~3.3.1",
-    "request": "~2.34.0"
+    "should": "~3.3.1"
   }
 }
