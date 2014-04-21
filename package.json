@@ -1,10 +1,9 @@
 {
   "name": "slack-node",
-  "version": "0.0.5",
+  "version": "0.0.8",
   "description": "slack for node verision, full support",
   "main": "lib/index.js",
   "scripts": {
-    "install": "./node_modules/.bin/cake build",
     "test": "./node_modules/.bin/mocha ./lib/test",
     "start": "./node_modules/.bin/coffee index.coffee"
   },
