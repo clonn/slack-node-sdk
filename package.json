@@ -1,7 +1,7 @@
 {
-  "name": "clonn",
-  "version": "0.0.0",
-  "description": "slack for node verision",
+  "name": "slack-node",
+  "version": "0.0.2",
+  "description": "slack for node verision, full support",
   "main": "lib/index.js",
   "scripts": {
     "preinstall": "node_modules/.bin/cake build",
