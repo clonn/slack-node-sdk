@@ -4,7 +4,8 @@
   "description": "slack for node verision, full support",
   "main": "lib/index.js",
   "scripts": {
-    "preinstall": "node_modules/.bin/cake build",
+    "preinstall": "npm install coffee-script",
+    "install": "node_modules/.bin/cake build",
     "test": "node_modules/.bin/mocha ./lib/test",
     "start": "node_modules/.bin/coffee index.coffee"
   },
