@@ -17,7 +17,7 @@
   "dependencies": {
     "request": "~2.34.0"
   },
-  "devDependency": {
+  "devDependencies": {
     "coffee-script": "~1.7.1",
     "mocha": "~1.18.2",
     "should": "~3.3.1"
