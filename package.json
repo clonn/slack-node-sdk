@@ -1,6 +1,6 @@
 {
   "name": "slack-node",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "slack for node verision, full support",
   "main": "lib/index.js",
   "scripts": {
