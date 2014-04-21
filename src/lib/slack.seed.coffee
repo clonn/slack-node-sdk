@@ -20,7 +20,9 @@ class Slack
       body: JSON.stringify
         channel: options.channel
         text: options.text
-        username: options.username 
+        username: options.username
+        icon_url: options.icon_url || ""
+        attachments: options.attachments
     , (err, body, response) ->
       if err or response isnt "ok"
         return callback err, null
