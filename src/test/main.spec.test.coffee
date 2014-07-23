@@ -46,7 +46,7 @@ describe "slack api part", ->
       response.should.be.ok.and.an.Object
       done()
 
-describe.only ", emoji test", ->
+describe ", emoji test", ->
 
   slack = new Slack webhookToken, domain
 
