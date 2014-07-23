@@ -22,6 +22,7 @@ class Slack
         text: options.text
         username: options.username
         icon_url: options.icon_url || ""
+        icon_emoji: options.icon_emoji || ""
         attachments: options.attachments
     , (err, body, response) ->
       if err or response isnt "ok"
