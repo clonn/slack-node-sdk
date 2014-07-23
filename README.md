@@ -30,6 +30,34 @@ code example,
       console.log(response);
     });
 
+Use icon emoji, you can give a Slack defined emoji, or use image from URL.
+
+
+    var Slack = require('slack-node');
+
+    domain = "--your-slack-subdomain--";
+    webhookToken = "--your-slack-webhook--";
+
+    slack = new Slack(webhookToken, domain);
+
+    // slack emoji
+    slack.webhook({
+      channel: "#general",
+      username: "webhookbot",
+      icon_emoji: ":ghost:"
+    }, function(err, response) {
+      console.log(response);
+    });
+
+    // URL image
+    slack.webhook({
+      channel: "#general",
+      username: "webhookbot",
+      icon_emoji: "http://icons.iconarchive.com/icons/rokey/popo-emotions/128/after-boom-icon.png"
+    }, function(err, response) {
+      console.log(response);
+    });
+
 ##Slack API
 
 first you have to apply an API from [SLACK API page](https://api.slack.com/),
@@ -49,4 +77,11 @@ example code,
       console.log(response);
     });
 
+## Changelog
 
+ * 0.0.92
+  * merge slack emoji for webhook
+  * pass request full request object
+
+ * 0.0.9
+  * pass parameters bug fixed
