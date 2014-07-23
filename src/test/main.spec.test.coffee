@@ -45,3 +45,32 @@ describe "slack api part", ->
     slack.api "users.list", (err, response) ->
       response.should.be.ok.and.an.Object
       done()
+
+describe.only ", emoji test", ->
+
+  slack = new Slack webhookToken, domain
+
+  it ', emoji give empty value', (done) ->
+    obj = slack.detectEmoji()
+
+    obj.should.be.an.Array
+    obj["key"].should.equal("icon_emoji")
+    obj["val"].should.equal("")
+    done()
+
+
+  it ', emoji using :ghost: style', (done) ->
+    obj = slack.detectEmoji(":ghost:")
+
+    obj.should.be.an.Array
+    obj["key"].should.equal("icon_emoji")
+    obj["val"].should.equal(":ghost:")
+    done()
+
+  it ', emoji using http image url', (done) ->
+    obj = slack.detectEmoji("http://icons.iconarchive.com/icons/rokey/popo-emotions/128/after-boom-icon.png")
+
+    obj.should.be.an.Array
+    obj["key"].should.equal("icon_url")
+    obj["val"].should.equal("http://icons.iconarchive.com/icons/rokey/popo-emotions/128/after-boom-icon.png")
+    done()
