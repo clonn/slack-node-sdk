@@ -13,23 +13,48 @@ class Slack
       #return web hook mode
       return "https://#{@domain}.slack.com/services/hooks/incoming-webhook?token=#{@token}"
 
+  detectEmoji: (emoji) =>
+    obj = []
+
+    unless emoji
+      obj["key"] = "icon_emoji"
+      obj["val"] = ""
+      return obj
+
+    if emoji.match(/^http/)
+      obj["key"] = "icon_url"
+      obj["val"] = emoji
+    else
+      obj["key"] = "icon_emoji"
+      obj["val"] = emoji
+
+    return obj
+
   webhook: (options, callback) =>
 
+    emoji = @detectEmoji(options.icon_emoji)
+
+    bufferJson =
+      channel: options.channel
+      text: options.text
+      username: options.username
+      attachments: options.attachments
+
+    bufferJson[emoji["key"]] = emoji["val"]
+
     request.post
-      url: @url 
-      body: JSON.stringify
-        channel: options.channel
-        text: options.text
-        username: options.username
-        icon_url: options.icon_url || ""
-        icon_emoji: options.icon_emoji || ""
-        attachments: options.attachments
+      url: @url
+      body: JSON.stringify bufferJson
     , (err, body, response) ->
       if err or response isnt "ok"
-        return callback err, null
-      
+        return callback err, {
+          status: "fail"
+          response: response
+        }
+
       callback err, {
-        ok: true
+        status: "ok"
+        response: response
       }
 
   api: (method, options, callback) =>
@@ -41,19 +66,22 @@ class Slack
     options.token = @token
 
     url =  @url + method
-    
+
     request
       url: @url + method
       method: "GET"
       qs: options
     , (err, body, response) ->
       if err
-        return callback err, null
+        return callback err, {
+          status: "fail"
+          response: response
+        }
 
       callback err, JSON.parse(response)
       return
 
     return @
-  
 
-module.exports = Slack 
+
+module.exports = Slack
