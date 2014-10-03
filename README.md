@@ -79,6 +79,9 @@ example code,
 
 ## Changelog
 
+ * 0.0.93
+  * return header and status
+
  * 0.0.92
   * merge slack emoji for webhook
   * pass request full request object
