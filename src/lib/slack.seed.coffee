@@ -49,6 +49,8 @@ class Slack
 
       callback err, {
         status: if err or response isnt "ok" then "fail" else "ok"
+        statusCode: body.statusCode
+        headers: body.headers
         response: response
       }
 
