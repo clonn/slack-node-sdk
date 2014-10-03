@@ -33,6 +33,17 @@ describe 'slack webhook part', ->
       response.should.be.ok.and.an.Object
       done()
 
+  it ',should have status code and headers', (done) ->
+    slack.webhook
+      channel: "#general"
+      username: "webhookbot"
+      text: "This is posted to #general and comes from a bot named webhookbot."
+      "icon_emoji": ":ghost:"
+    , (err, response) ->
+      response.statusCode.should.be.a.Number
+      response.headers.should.be.an.Object
+      done()
+
 describe "slack api part", ->
 
   slack = new Slack apiToken
