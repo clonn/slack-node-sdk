@@ -46,14 +46,9 @@ class Slack
       url: @url
       body: JSON.stringify bufferJson
     , (err, body, response) ->
-      if err or response isnt "ok"
-        return callback err, {
-          status: "fail"
-          response: response
-        }
 
       callback err, {
-        status: "ok"
+        status: if err or response isnt "ok" then "fail" else "ok"
         response: response
       }
 
