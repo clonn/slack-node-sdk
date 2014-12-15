@@ -60,6 +60,8 @@ class Slack
       callback = options
       options = {}
 
+    # prevent options it empty
+    options = options || {}
     options.token = @token
 
     url =  @url + method
@@ -75,7 +77,8 @@ class Slack
           response: response
         }
 
-      callback err, JSON.parse(response)
+      callback(err, JSON.parse(response)) if (callback) 
+    
       return
 
     return @

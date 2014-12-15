@@ -85,3 +85,15 @@ describe ", emoji test", ->
     obj["key"].should.equal("icon_url")
     obj["val"].should.equal("http://icons.iconarchive.com/icons/rokey/popo-emotions/128/after-boom-icon.png")
     done()
+
+describe "lack something", ->
+
+  slack = new Slack webhookToken, domain
+  it ', without callback', (done) ->
+    method = "files.list"
+    feedback = slack.api method
+    feedback.should.be.an.Object
+    feedback.should.equal(slack)
+    feedback.should.not.be.null
+    done()
+
