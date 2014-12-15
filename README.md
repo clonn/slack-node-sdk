@@ -77,6 +77,8 @@ example code,
       console.log(response);
     });
 
+    slack.api('chat.postMessage', {text:'hello from nodejs', channel:'#general'}, function(){});
+
 ## Changelog
 
  * 0.0.93
