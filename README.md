@@ -12,15 +12,18 @@ slack-node-sdk
 ##Slack Webhook usage
 
 At first, you have to apply [Slack webhook](https://my.slack.com/services/new/incoming-webhook).
+and copy `webhook url`
+
+### Webhook usage
 
 code example,
 
     var Slack = require('slack-node');
 
-    domain = "--your-slack-subdomain--";
-    webhookToken = "--your-slack-webhook--";
+    webhookUri = "__uri___";
 
-    slack = new Slack(webhookToken, domain);
+    slack = new Slack();
+    slack.setWebHook(webhookUri);
 
     slack.webhook({
       channel: "#general",
@@ -35,10 +38,10 @@ Use icon emoji, you can give a Slack defined emoji, or use image from URL.
 
     var Slack = require('slack-node');
 
-    domain = "--your-slack-subdomain--";
-    webhookToken = "--your-slack-webhook--";
+    webhookUri = "__uri___";
 
-    slack = new Slack(webhookToken, domain);
+    slack = new Slack();
+    slack.setWebHook(webhookUri);
 
     // slack emoji
     slack.webhook({
@@ -58,7 +61,7 @@ Use icon emoji, you can give a Slack defined emoji, or use image from URL.
       console.log(response);
     });
 
-##Slack API
+## Slack API support
 
 first you have to apply an API from [SLACK API page](https://api.slack.com/),
 
@@ -81,10 +84,13 @@ example code,
 
 ## Changelog
  
- * 0.0.95
-  * fixed without callback error.
+ * 0.0.96
   * support ES6, promise function.
-
+ 
+ * 0.0.95
+  * fixed webhook function and test
+  * support file upload function
+ 
  * 0.0.93
   * return header and status
 
