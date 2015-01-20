@@ -4,7 +4,7 @@ Slack = require "../index"
 domain = "slack-node"
 webhookToken = "ROHgstANbsFAUA5dHHI5JONu"
 apiToken = "xoxp-2307918714-2307918716-2307910813-17cabf"
-webhookUri = "https://hooks.slack.com/services/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"
+webhookUri = "https://hooks.slack.com/services/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"
 
 describe.only 'slack new webhook test', ->
 
