@@ -6,12 +6,11 @@ class Slack
     @url = @composeUrl()
 
   composeUrl: =>
-    if @apiMode
-      #retrun api url
-      return "https://slack.com/api/"
-    else
-      #return web hook mode
-      return "https://#{@domain}.slack.com/services/hooks/incoming-webhook?token=#{@token}"
+    return "https://slack.com/api/"
+
+  setWebHook: (url) =>
+    return @webhookUrl = url
+    @
 
   detectEmoji: (emoji) =>
     obj = []
@@ -34,19 +33,18 @@ class Slack
 
     emoji = @detectEmoji(options.icon_emoji)
 
-    bufferJson =
+    payload =
       channel: options.channel
       text: options.text
       username: options.username
       attachments: options.attachments
 
-    bufferJson[emoji["key"]] = emoji["val"]
+    payload[emoji["key"]] = emoji["val"]
 
     request.post
-      url: @url
-      body: JSON.stringify bufferJson
+      url: @webhookUrl
+      body: JSON.stringify payload
     , (err, body, response) ->
-
       callback err, {
         status: if err or response isnt "ok" then "fail" else "ok"
         statusCode: body.statusCode
@@ -60,28 +58,35 @@ class Slack
       callback = options
       options = {}
 
-    # prevent options it empty
-    options = options || {}
+    options = options or {}
+    
     options.token = @token
-
-    url =  @url + method
-
-    request
-      url: @url + method
-      method: "GET"
-      qs: options
-    , (err, body, response) ->
+    
+    url = @url + method
+    
+    request_arg = url: @url + method
+    
+    if @_is_post_api(method)
+      request_arg.method = "POST"
+      request_arg.form = options
+    else
+      request_arg.method = "GET"
+      request_arg.qs = options
+    
+    request request_arg, (err, body, response) ->
       if err
-        return callback err, {
+        return callback(err,
           status: "fail"
           response: response
-        }
+        )
 
-      callback(err, JSON.parse(response)) if (callback) 
-    
+      callback err, JSON.parse(response)  if callback
       return
 
     return @
+
+  _is_post_api: (method) ->
+    return true  if method is "files.upload"
 
 
 module.exports = Slack

@@ -4,10 +4,12 @@ Slack = require "../index"
 domain = "slack-node"
 webhookToken = "ROHgstANbsFAUA5dHHI5JONu"
 apiToken = "xoxp-2307918714-2307918716-2307910813-17cabf"
+webhookUri = "https://hooks.slack.com/services/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"
 
-describe 'slack webhook part', ->
+describe.only 'slack new webhook test', ->
 
-  slack = new Slack webhookToken, domain
+  slack = new Slack()
+  slack.setWebHook(webhookUri)
 
   it ',should send a correct response', (done) ->
 
