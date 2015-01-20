@@ -80,6 +80,10 @@ example code,
     slack.api('chat.postMessage', {text:'hello from nodejs', channel:'#general'}, function(){});
 
 ## Changelog
+ 
+ * 0.0.95
+  * fixed without callback error.
+  * support ES6, promise function.
 
  * 0.0.93
   * return header and status
