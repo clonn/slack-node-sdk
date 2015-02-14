@@ -8,7 +8,7 @@ class Slack
   composeUrl: =>
     return "https://slack.com/api/"
 
-  setWebHook: (url) =>
+  setWebhook: (url) =>
     @webhookUrl = url
     return this
 
