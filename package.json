@@ -1,6 +1,6 @@
 {
   "name": "slack-node",
-  "version": "0.0.95",
+  "version": "0.1.0",
   "description": "slack for node verision, full support",
   "main": "lib/index.js",
   "scripts": {
@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "coffee-script": "~1.7.1",
-    "mocha": "~1.18.2",
+    "mocha": "^2.1.0",
     "should": "~3.3.1"
   }
 }
