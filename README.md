@@ -63,6 +63,8 @@ Use icon emoji, you can give a Slack defined emoji, or use image from URL.
       console.log(response);
     });
 
+Otherwise, you can check usage from [example](https://github.com/clonn/slack-node-sdk/tree/master/example)
+
 ## Slack API support
 
 first you have to apply an API from [SLACK API page](https://api.slack.com/),
