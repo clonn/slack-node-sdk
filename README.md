@@ -23,7 +23,7 @@ code example,
     webhookUri = "__uri___";
 
     slack = new Slack();
-    slack.setWebHook(webhookUri);
+    slack.setWebhook(webhookUri);
 
     slack.webhook({
       channel: "#general",
