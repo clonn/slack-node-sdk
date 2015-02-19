@@ -7,15 +7,16 @@ apiToken = "xoxp-2307918714-2307918716-2307910813-17cabf"
 webhookUri = "https://hooks.slack.com/services/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"
 
 describe 'slack new webhook test', ->
-
+  this.timeout(50000)
   slack = new Slack()
-  slack.setWebHook(webhookUri)
+  slack.setWebhook(webhookUri)
 
   it 'should create a slack object', (done) ->
     slack.should.be.an.Object
     done()
 
   it 'should send a correct response', (done) ->
+    
     slack.webhook
       channel: "#general"
       username: "webhookbot"
@@ -35,6 +36,7 @@ describe 'slack new webhook test', ->
       done()
 
   it 'should have status code and headers', (done) ->
+
     slack.webhook
       channel: "#general"
       username: "webhookbot"
@@ -46,14 +48,14 @@ describe 'slack new webhook test', ->
       done()
 
 describe "slack api part", ->
-
+  this.timeout 50000
   slack = new Slack apiToken
   it 'should return a slack object', (done) ->
     slack.should.be.an.Object
     done()
 
   it "run with user.list", (done) ->
-
+    
     slack.api "users.list", (err, response) ->
       response.should.be.ok.and.an.Object
       done()
@@ -65,7 +67,7 @@ describe "emoji test", ->
   it 'emoji give empty value', (done) ->
     obj = slack.detectEmoji()
 
-    obj.should.be.an.Array
+    obj.should.be.an.Object
     obj["key"].should.equal("icon_emoji")
     obj["val"].should.equal("")
     done()
@@ -74,7 +76,7 @@ describe "emoji test", ->
   it 'emoji using :ghost: style', (done) ->
     obj = slack.detectEmoji(":ghost:")
 
-    obj.should.be.an.Array
+    obj.should.be.an.Object
     obj["key"].should.equal("icon_emoji")
     obj["val"].should.equal(":ghost:")
     done()
@@ -82,7 +84,7 @@ describe "emoji test", ->
   it 'emoji using http image url', (done) ->
     obj = slack.detectEmoji("http://icons.iconarchive.com/icons/rokey/popo-emotions/128/after-boom-icon.png")
 
-    obj.should.be.an.Array
+    obj.should.be.an.Object
     obj["key"].should.equal("icon_url")
     obj["val"].should.equal("http://icons.iconarchive.com/icons/rokey/popo-emotions/128/after-boom-icon.png")
     done()
