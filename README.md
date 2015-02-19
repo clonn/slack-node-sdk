@@ -83,9 +83,13 @@ example code,
     slack.api('chat.postMessage', {text:'hello from nodejs', channel:'#general'}, function(){});
 
 ## Changelog
- 
- * 0.0.96
+
+ * 0.1.2
   * support ES6, promise function.
+ 
+ * 0.1.0
+  * fixed test type error
+  * support new [slack webhook](https://api.slack.com/incoming-webhooks).
  
  * 0.0.95
   * fixed webhook function and test
