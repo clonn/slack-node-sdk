@@ -41,13 +41,14 @@ Use icon emoji, you can give a Slack defined emoji, or use image from URL.
     webhookUri = "__uri___";
 
     slack = new Slack();
-    slack.setWebHook(webhookUri);
+    slack.setWebhook(webhookUri);
 
     // slack emoji
     slack.webhook({
       channel: "#general",
       username: "webhookbot",
-      icon_emoji: ":ghost:"
+      icon_emoji: ":ghost:",
+      text: "test message, test message"
     }, function(err, response) {
       console.log(response);
     });
@@ -56,7 +57,8 @@ Use icon emoji, you can give a Slack defined emoji, or use image from URL.
     slack.webhook({
       channel: "#general",
       username: "webhookbot",
-      icon_emoji: "http://icons.iconarchive.com/icons/rokey/popo-emotions/128/after-boom-icon.png"
+      icon_emoji: "http://icons.iconarchive.com/icons/rokey/popo-emotions/128/after-boom-icon.png",
+      text: "test message, test message"
     }, function(err, response) {
       console.log(response);
     });
@@ -80,7 +82,12 @@ example code,
       console.log(response);
     });
 
-    slack.api('chat.postMessage', {text:'hello from nodejs', channel:'#general'}, function(){});
+    slack.api('chat.postMessage', {
+      text:'hello from nodejs', 
+      channel:'#general'
+    }, function(err, response){
+      console.log(response);
+    });
 
 ## Changelog
 
