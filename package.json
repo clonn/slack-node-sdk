@@ -15,11 +15,12 @@
   "author": "Caesar Chi",
   "license": "MIT",
   "dependencies": {
-    "request": "~2.34.0"
+    "requestretry": "^1.2.2"
   },
   "devDependencies": {
     "coffee-script": "~1.7.1",
     "mocha": "^2.1.0",
+    "nock": "^1.2.0",
     "should": "~3.3.1"
   }
 }
