@@ -1,9 +1,14 @@
-request = require "request"
+request = require "requestretry"
+
+DEFAULT_TIMEOUT = 10 * 1000
+DEFAULT_MAX_ATTEMPTS = 3
 
 class Slack
   constructor: (@token, @domain) ->
     @apiMode = not @domain?
     @url = @composeUrl()
+    @timeout = DEFAULT_TIMEOUT
+    @maxAttempts = DEFAULT_MAX_ATTEMPTS
 
   composeUrl: =>
     return "https://slack.com/api/"
@@ -36,11 +41,16 @@ class Slack
 
     payload[emoji.key] = emoji.val
 
-    request.post
+    request
+      method: "POST"
       url: @webhookUrl
       body: JSON.stringify payload
+      timeout: @timeout
+      maxAttempts: @maxAttempts
+      retryDelay: 0
     , (err, body, response) ->
-      callback err, {
+      if err? then return callback(err)
+      callback null, {
         status: if err or response isnt "ok" then "fail" else "ok"
         statusCode: body.statusCode
         headers: body.headers
@@ -57,7 +67,12 @@ class Slack
 
     url = @url + method
 
-    request_arg = { url: @url + method }
+    request_arg = { 
+      url: @url + method 
+      timeout: @timeout
+      maxAttempts: @maxAttempts
+      retryDelay: 0
+    }
 
     if @_is_post_api(method)
       request_arg.method = "POST"

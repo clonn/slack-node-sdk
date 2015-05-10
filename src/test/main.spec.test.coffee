@@ -1,6 +1,9 @@
 should = require "should"
+nock = require "nock"
+url = require "url"
 Slack = require "../index"
 
+nock.enableNetConnect()
 domain = "slack-node"
 webhookToken = "ROHgstANbsFAUA5dHHI5JONu"
 apiToken = "xoxp-2307918714-2307918716-2307910813-17cabf"
@@ -22,6 +25,7 @@ describe 'slack new webhook test', ->
       username: "webhookbot"
       text: "This is posted to #general and comes from a bot named webhookbot."
     , (err, response) ->
+      if err then return done(err)
       response.should.be.ok.and.an.Object
       done()
 
@@ -32,6 +36,7 @@ describe 'slack new webhook test', ->
       text: "This is posted to #general and comes from a bot named webhookbot."
       icon_emoji: ":ghost:"
     , (err, response) ->
+      if err then return done(err)
       response.should.be.ok.and.an.Object
       done()
 
@@ -43,6 +48,7 @@ describe 'slack new webhook test', ->
       text: "This is posted to #general and comes from a bot named webhookbot."
       "icon_emoji": ":ghost:"
     , (err, response) ->
+      if err then return done(err)
       response.statusCode.should.be.a.Number
       response.headers.should.be.an.Object
       done()
@@ -99,3 +105,29 @@ describe "lack something", ->
     feedback.should.equal(slack)
     feedback.should.not.be.null
     done()
+
+describe "retry test", ->
+  
+  this.timeout(50000)
+  slack = null
+  
+  beforeEach ->
+    slack = new Slack()
+    slack.setWebhook(webhookUri)
+    slack.timeout = 10;
+  
+  it "Should retry if a request to slack fails after a timeout", (done) ->
+    webhookDetails = url.parse(webhookUri); 
+    mockWebhook = nock(webhookDetails.protocol + "//" + webhookDetails.host).post(webhookDetails.path).times(3).socketDelay(20).reply(204, '')
+    slack.webhook
+      channel: "#general"
+      username: "webhookbot"
+      text: "This is posted to #general and comes from a bot named webhookbot."
+    , (err, response) ->
+      should.exist(err)
+      should.not.exist(response)
+      should.equal(mockWebhook.isDone(), true)
+      done()
+    
+    
+    
