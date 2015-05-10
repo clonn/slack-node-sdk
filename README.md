@@ -97,7 +97,7 @@ example code,
   * support ES6, promise function.
  
  * 0.1.3
-  * use [requestretry](https://www.npmjs.com/package/requestretry) replace request. [timjrobinson](https://github.com/clonn/slack-node-sdk/pull/11)
+  * use [requestretry](https://www.npmjs.com/package/requestretry) replace request. thanks for [timjrobinson](https://github.com/clonn/slack-node-sdk/pull/11)
   * update test
   * fixed emoji error
   * fixed return error crash when run time.
