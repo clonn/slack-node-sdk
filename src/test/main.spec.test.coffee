@@ -66,6 +66,35 @@ describe "slack api part", ->
       response.should.be.ok.and.an.Object
       done()
 
+
+  it "run with Attachments", (done) ->
+    payload =
+      channel: "#general"
+      username: "webhookbot"
+      text: "This is posted to #general and comes from a bot named webhookbot."
+      icon_emoji: ":ghost:"
+      attachments: [
+         {
+            "pretext":"pretext",
+            "color": "#0000FF",
+            "fields":[
+               {
+                  "title":"title",
+                  "value":"foobar",
+                  "short":false
+               }
+            ]
+         }
+      ]
+
+    slack.api 'chat.postMessage', payload, (err, response) ->
+      response.should.be.ok.and.an.Object
+      done()
+    
+    # slack.api "users.list", (err, response) ->
+    #   response.should.be.ok.and.an.Object
+    #   done()
+
 describe "emoji test", ->
 
   slack = new Slack webhookToken, domain
