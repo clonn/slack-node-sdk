@@ -5,11 +5,11 @@ slack-node-sdk
 
 [Slack](https://slack.com/) Node SDK, full support Webhook and Slack API, continuous update.
 
-##install
+## Install
 
     npm install slack-node
 
-##Slack Webhook usage
+## Slack Webhook usage
 
 At first, you have to apply [Slack webhook](https://my.slack.com/services/new/incoming-webhook).
 and copy `webhook url`
