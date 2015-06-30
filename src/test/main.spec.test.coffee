@@ -19,7 +19,7 @@ describe 'slack new webhook test', ->
     done()
 
   it 'should send a correct response', (done) ->
-    
+
     slack.webhook
       channel: "#general"
       username: "webhookbot"
@@ -61,7 +61,7 @@ describe "slack api part", ->
     done()
 
   it "run with user.list", (done) ->
-    
+
     slack.api "users.list", (err, response) ->
       response.should.be.ok.and.an.Object
       done()
@@ -90,7 +90,7 @@ describe "slack api part", ->
     slack.api 'chat.postMessage', payload, (err, response) ->
       response.should.be.ok.and.an.Object
       done()
-    
+
     # slack.api "users.list", (err, response) ->
     #   response.should.be.ok.and.an.Object
     #   done()
@@ -135,18 +135,29 @@ describe "lack something", ->
     feedback.should.not.be.null
     done()
 
+describe 'parse test', ->
+
+  slack = new Slack webhookToken, domain
+  # Something that returns XML
+  slack.url = 'https://httpbin.org/xml'
+
+  it 'does not crash if XML is returned', (done) ->
+    slack.api "users.list", (err, response) ->
+      err.message.should.containEql "Couldn't parse Slack API response"
+      done()
+
 describe "retry test", ->
-  
+
   this.timeout(50000)
   slack = null
-  
+
   beforeEach ->
     slack = new Slack()
     slack.setWebhook(webhookUri)
-    slack.timeout = 10;
-  
+    slack.timeout = 10
+
   it "Should retry if a request to slack fails after a timeout", (done) ->
-    webhookDetails = url.parse(webhookUri); 
+    webhookDetails = url.parse(webhookUri)
     mockWebhook = nock(webhookDetails.protocol + "//" + webhookDetails.host).post(webhookDetails.path).times(3).socketDelay(20).reply(204, '')
     slack.webhook
       channel: "#general"
@@ -157,6 +168,3 @@ describe "retry test", ->
       should.not.exist(response)
       should.equal(mockWebhook.isDone(), true)
       done()
-    
-    
-    
