@@ -67,8 +67,8 @@ class Slack
 
     url = @url + method
 
-    request_arg = { 
-      url: @url + method 
+    request_arg = {
+      url: @url + method
       timeout: @timeout
       maxAttempts: @maxAttempts
       retryDelay: 0
@@ -88,7 +88,13 @@ class Slack
           response: response
         )
 
-      callback?(err, JSON.parse(response))
+      try
+        parsedResponse = JSON.parse(response)
+      catch err
+        err = new Error "Couldn't parse Slack API response as JSON:\n#{response}"
+        return callback?(err)
+
+      callback?(err, parsedResponse)
       return
 
     return this
