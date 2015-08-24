@@ -1,7 +1,7 @@
 {
   "name": "slack-node",
   "version": "0.1.3",
-  "description": "slack for node verision, full support",
+  "description": "Slack API library for node",
   "main": "lib/index.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha ./lib/test",

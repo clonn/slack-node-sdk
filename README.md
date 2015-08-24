@@ -3,7 +3,7 @@ slack-node-sdk
 
 [![Build Status](https://travis-ci.org/clonn/slack-node-sdk.svg?branch=master)](https://travis-ci.org/clonn/slack-node-sdk)
 
-[Slack](https://slack.com/) Node SDK, full support Webhook and Slack API, continuous update.
+[Slack](https://slack.com/) Node SDK, full support for Webhook and the Slack API, continuously updated.
 
 ## Install
 
@@ -16,100 +16,106 @@ and copy `webhook url`
 
 ### Webhook usage
 
-code example,
+Code example:
 
-    var Slack = require('slack-node');
+```javascript
+var Slack = require('slack-node');
 
-    webhookUri = "__uri___";
+webhookUri = "__uri___";
 
-    slack = new Slack();
-    slack.setWebhook(webhookUri);
+slack = new Slack();
+slack.setWebhook(webhookUri);
 
-    slack.webhook({
-      channel: "#general",
-      username: "webhookbot",
-      text: "This is posted to #general and comes from a bot named webhookbot."
-    }, function(err, response) {
-      console.log(response);
-    });
+slack.webhook({
+  channel: "#general",
+  username: "webhookbot",
+  text: "This is posted to #general and comes from a bot named webhookbot."
+}, function(err, response) {
+  console.log(response);
+});
+```
 
 Use icon emoji, you can give a Slack defined emoji, or use image from URL.
 
 
-    var Slack = require('slack-node');
+```javascript
+var Slack = require('slack-node');
 
-    webhookUri = "__uri___";
+webhookUri = "__uri___";
 
-    slack = new Slack();
-    slack.setWebhook(webhookUri);
+slack = new Slack();
+slack.setWebhook(webhookUri);
 
-    // slack emoji
-    slack.webhook({
-      channel: "#general",
-      username: "webhookbot",
-      icon_emoji: ":ghost:",
-      text: "test message, test message"
-    }, function(err, response) {
-      console.log(response);
-    });
+// slack emoji
+slack.webhook({
+  channel: "#general",
+  username: "webhookbot",
+  icon_emoji: ":ghost:",
+  text: "test message, test message"
+}, function(err, response) {
+  console.log(response);
+});
 
-    // URL image
-    slack.webhook({
-      channel: "#general",
-      username: "webhookbot",
-      icon_emoji: "http://icons.iconarchive.com/icons/rokey/popo-emotions/128/after-boom-icon.png",
-      text: "test message, test message"
-    }, function(err, response) {
-      console.log(response);
-    });
+// URL image
+slack.webhook({
+  channel: "#general",
+  username: "webhookbot",
+  icon_emoji: "http://icons.iconarchive.com/icons/rokey/popo-emotions/128/after-boom-icon.png",
+  text: "test message, test message"
+}, function(err, response) {
+  console.log(response);
+});
+```
 
 Otherwise, you can check usage from [example](https://github.com/clonn/slack-node-sdk/tree/master/example)
 
 ## Slack API support
 
-first you have to apply an API from [SLACK API page](https://api.slack.com/),
+First you have to apply an API from [SLACK API page](https://api.slack.com/),
 
  * [https://api.slack.com/](https://api.slack.com/)
 
-The method, please referece [Slack API page](https://api.slack.com/)
+The method, please reference [Slack API page](https://api.slack.com/)
 
 example code,
 
-    var Slack = require('slack-node');
-    apiToken = "-- api token --";
+```javascript
+var Slack = require('slack-node');
+apiToken = "-- api token --";
 
-    slack = new Slack(apiToken);
+slack = new Slack(apiToken);
 
-    slack.api("users.list", function(err, response) {
-      console.log(response);
-    });
+slack.api("users.list", function(err, response) {
+  console.log(response);
+});
 
-    slack.api('chat.postMessage', {
-      text:'hello from nodejs', 
-      channel:'#general'
-    }, function(err, response){
-      console.log(response);
-    });
+slack.api('chat.postMessage', {
+  text:'hello from nodejs',
+  channel:'#general'
+}, function(err, response){
+  console.log(response);
+});
+```
 
 ## Changelog
 
  * 0.1.6
   * support ES6, promise function.
- 
+
  * 0.1.3
   * use [requestretry](https://www.npmjs.com/package/requestretry) replace request. thanks for [timjrobinson](https://github.com/clonn/slack-node-sdk/pull/11)
   * update test
   * fixed emoji error
   * fixed return error crash when run time.
- 
+
  * 0.1.0
   * fixed test type error
   * support new [slack webhook](https://api.slack.com/incoming-webhooks).
- 
+
  * 0.0.95
   * fixed webhook function and test
   * support file upload function
- 
+
  * 0.0.93
   * return header and status
 
