@@ -38,6 +38,7 @@ class Slack
       text: options.text
       username: options.username
       attachments: options.attachments
+      link_names: options.link_names or 0
 
     payload[emoji.key] = emoji.val
 
