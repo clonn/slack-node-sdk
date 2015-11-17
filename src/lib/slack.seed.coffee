@@ -34,6 +34,7 @@ class Slack
     emoji = @detectEmoji(options.icon_emoji)
 
     payload =
+      response_type: options.response_type || 'ephemeral'
       channel: options.channel
       text: options.text
       username: options.username
