@@ -1,8 +1,15 @@
 language: node_js
+
+sudo: false
+
 node_js:
   - "0.10"
+
 before_script:
-  ./node_modules/.bin/cake build
-before_install:
-  - npm install coffee-script
-  - npm install mocha
+  - make compile
+
+install:
+  - npm install --global npm@2
+  - make install
+
+script: make test

@@ -22,7 +22,7 @@
     "requestretry": "^1.2.2"
   },
   "devDependencies": {
-    "coffee-script": "~1.7.1",
+    "coffee-script": "1.8.0",
     "mocha": "^2.1.0",
     "nock": "^1.2.0",
     "should": "~3.3.1"
