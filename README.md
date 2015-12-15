@@ -99,6 +99,9 @@ slack.api('chat.postMessage', {
 
 ## Changelog
 
+ * 0.1.7
+  * slack-node no longer crashes if Slack returns HTML instead of JSON.
+
  * 0.1.6
   * support ES6, promise function.
 
