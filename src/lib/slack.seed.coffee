@@ -76,7 +76,7 @@ class Slack
 
     if @_is_post_api(method)
       request_arg.method = "POST"
-      request_arg.form = options
+      request_arg.formData = options
     else
       request_arg.method = "GET"
       request_arg.qs = options
