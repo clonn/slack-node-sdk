@@ -53,6 +53,23 @@ describe 'slack new webhook test', ->
       response.headers.should.be.an.Object
       done()
 
+describe 'slack new webhook options test', ->
+  this.timeout(50000)
+  slack = new Slack()
+  slack.setWebhook webhookUri,
+    channel: "#general"
+    username: "webhookbot"
+    icon_emoji: ":ghost:"
+
+  it 'should send a correct response', (done) ->
+
+    slack.webhook
+      text: "This is posted to #general and comes from a bot named webhookbot."
+    , (err, response) ->
+      if err then return done(err)
+      response.should.be.ok.and.an.Object
+      done()
+
 describe "slack api part", ->
   this.timeout 50000
   slack = new Slack apiToken
