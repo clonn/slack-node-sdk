@@ -82,6 +82,7 @@ class Slack
     else
       request_arg.method = "GET"
       request_arg.qs = options
+      request_arg.useQuerystring = true
 
     request request_arg, (err, body, response) ->
       if err
