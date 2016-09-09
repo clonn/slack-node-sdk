@@ -1,9 +1,15 @@
 request = require "requestretry"
+Webhook = require "./Webhook"
 
 DEFAULT_TIMEOUT = 10 * 1000
 DEFAULT_MAX_ATTEMPTS = 3
 
 class Slack
+
+  @Webhook = Webhook
+
+  detectEmoji: Webhook.detectEmoji
+
   constructor: (@token, @domain) ->
     @apiMode = not @domain?
     @url = @composeUrl()
@@ -17,47 +23,23 @@ class Slack
     @webhookUrl = url
     return this
 
-  detectEmoji: (emoji) =>
-    obj = {}
-
-    unless emoji
-      obj.key = "icon_emoji"
-      obj.val = ""
-      return obj
-
-    obj.key = if emoji.match(/^http/) then "icon_url" else "icon_emoji"
-    obj.val = emoji
-    return obj
-
   webhook: (options, callback) =>
+    if typeof options is "function"
+      callback = options
+      options = {}
 
-    emoji = @detectEmoji(options.icon_emoji)
+    unless options.url
+      options.url = @webhookUrl
 
-    payload =
-      response_type: options.response_type || 'ephemeral'
-      channel: options.channel
-      text: options.text
-      username: options.username
-      attachments: options.attachments
-      link_names: options.link_names or 0
+    unless options.timeout
+      options.timeout = @timeout
 
-    payload[emoji.key] = emoji.val
+    unless options.maxAttempts
+      options.maxAttempts = @maxAttempts
 
-    request
-      method: "POST"
-      url: @webhookUrl
-      body: JSON.stringify payload
-      timeout: @timeout
-      maxAttempts: @maxAttempts
-      retryDelay: 0
-    , (err, body, response) ->
-      if err? then return callback(err)
-      callback null, {
-        status: if err or response isnt "ok" then "fail" else "ok"
-        statusCode: body.statusCode
-        headers: body.headers
-        response: response
-      }
+    webhook = new Webhook
+    webhook.respond options, (err, response) ->
+      callback err, response
 
   api: (method, options = {}, callback) =>
 
