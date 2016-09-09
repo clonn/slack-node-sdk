@@ -9,14 +9,12 @@ class Slack
     @url = @composeUrl()
     @timeout = DEFAULT_TIMEOUT
     @maxAttempts = DEFAULT_MAX_ATTEMPTS
-    @webhookOptions = {};
 
   composeUrl: =>
     return "https://slack.com/api/"
 
-  setWebhook: (url, options) =>
+  setWebhook: (url) =>
     @webhookUrl = url
-    @webhookOptions = options if typeof options is "object"
     return this
 
   detectEmoji: (emoji) =>
@@ -33,15 +31,15 @@ class Slack
 
   webhook: (options, callback) =>
 
-    emoji = @detectEmoji(options.icon_emoji || @webhookOptions.response_type)
+    emoji = @detectEmoji(options.icon_emoji)
 
     payload =
-      response_type: options.response_type or @webhookOptions.response_type or 'ephemeral'
-      channel: options.channel or @webhookOptions.channel
+      response_type: options.response_type || 'ephemeral'
+      channel: options.channel
       text: options.text
-      username: options.username or @webhookOptions.username
-      attachments: options.attachments or @webhookOptions.attachments
-      link_names: options.link_names or @webhookOptions.link_names or 0
+      username: options.username
+      attachments: options.attachments
+      link_names: options.link_names or 0
 
     payload[emoji.key] = emoji.val
 
