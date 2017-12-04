@@ -4,8 +4,8 @@
   "description": "Slack API library for node",
   "main": "lib/index.js",
   "scripts": {
-    "test": "./node_modules/.bin/mocha ./lib/test",
-    "start": "./node_modules/.bin/coffee index.coffee"
+    "test": "mocha ./lib/test",
+    "start": "coffee ./src/index.coffee"
   },
   "repository": {
     "type": "git",
