@@ -69,15 +69,18 @@ slack.webhook({
 
 Otherwise, you can check usage from [example](https://github.com/clonn/slack-node-sdk/tree/master/example)
 
-## Slack API support
+## Slack API Support
 
-First you have to apply an API from [SLACK API page](https://api.slack.com/),
+To work with the Slack API you must register a new application through the [SLACK API page](https://api.slack.com/). 
 
- * [https://api.slack.com/](https://api.slack.com/)
+After registering the application, you can set up what features that the application will use. If you are unsure what settings you should use here, try just enabling the `permissions` feature to manually set what the application will be able to access/manipulate. 
 
-The method, please reference [Slack API page](https://api.slack.com/)
-
-example code,
+   1. Once you click on `Permissions` box you will be redirected to the `OAuth Tokens & Redirect URLs` page.
+   2. Scroll down to the `Scopes` section.
+   3. Click the dropdown select and enable the `Send Messages as [App Name]` under the `Chat` category.
+   4. Save the changes
+   5. Scroll back to the top and click the green `Install App to Workspace` button.
+   6. You will be redirected and given an `OAuth` key. This is the key you will use as your `API Token` below.
 
 ```javascript
 var Slack = require('slack-node');
