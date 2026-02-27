@@ -1,11 +1,13 @@
 {
   "name": "slack-node",
-  "version": "0.1.7",
+  "version": "0.2.0",
   "description": "Slack API library for node",
   "main": "lib/index.js",
+  "engines": {
+    "node": ">=4.0.0"
+  },
   "scripts": {
-    "test": "./node_modules/.bin/mocha ./lib/test",
-    "start": "./node_modules/.bin/coffee index.coffee"
+    "test": "mocha test/"
   },
   "repository": {
     "type": "git",
@@ -22,9 +24,8 @@
     "requestretry": "^1.2.2"
   },
   "devDependencies": {
-    "coffee-script": "1.10.0",
-    "mocha": "^2.1.0",
-    "nock": "^1.2.0",
-    "should": "~3.3.1"
+    "mocha": "^5.2.0",
+    "nock": "^9.6.1",
+    "should": "^13.2.3"
   }
 }
