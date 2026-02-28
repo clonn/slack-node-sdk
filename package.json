@@ -4,7 +4,7 @@
   "description": "Slack API library for node",
   "main": "lib/index.js",
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=18.18.0"
   },
   "scripts": {
     "test": "mocha test/"
@@ -21,11 +21,12 @@
   "author": "Caesar Chi",
   "license": "MIT",
   "dependencies": {
-    "requestretry": "^1.2.2"
+    "request": "^2.88.2",
+    "requestretry": "^8.0.0"
   },
   "devDependencies": {
-    "mocha": "^5.2.0",
-    "nock": "^9.6.1",
+    "mocha": "^11.3.0",
+    "nock": "^14.0.11",
     "should": "^13.2.3"
   }
 }

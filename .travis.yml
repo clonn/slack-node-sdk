@@ -3,14 +3,9 @@ language: node_js
 sudo: false
 
 node_js:
-  - "4"
-  - "6"
-  - "8"
-  - "10"
-  - "12"
-  - "14"
-  - "16"
   - "18"
+  - "20"
+  - "22"
 
 install:
   - npm install

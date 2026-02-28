@@ -5,7 +5,7 @@ slack-node-sdk
 
 [Slack](https://slack.com/) Node SDK, full support for Webhook and the Slack API, continuously updated.
 
-Supports both **callback** and **Promise** styles. Works with Node.js 4+ (use `async/await` on Node 8+).
+Supports both **callback** and **Promise** styles. Requires Node.js 18+.
 
 ## Install
 
@@ -51,7 +51,7 @@ slack.webhook({
 });
 ```
 
-### async/await (Node 8+)
+### async/await
 
 ```javascript
 const Slack = require('slack-node');
@@ -141,7 +141,7 @@ slack.api("chat.postMessage", {
 });
 ```
 
-### async/await (Node 8+)
+### async/await
 
 ```javascript
 const Slack = require('slack-node');
@@ -189,7 +189,7 @@ var promise = slack.api("users.list");
 console.log(typeof promise.then); // "function"
 ```
 
-No external Promise library is needed. The SDK uses the native `Promise` built into Node.js 4+.
+No external Promise library is needed. The SDK uses native `Promise`.
 
 ## Configuration
 
@@ -210,7 +210,9 @@ slack.maxAttempts = 5;
   * Added dual-mode support: all async methods now return a Promise when no callback is provided
   * Full backward compatibility — existing callback-based code works without changes
   * Replaced real API tests with comprehensive mock tests (37 test cases using nock)
-  * Extended CI Node.js version matrix: 4, 6, 8, 10, 12, 14, 16, 18
+  * Upgraded all dependencies to latest versions (requestretry 8.x, mocha 11.x, nock 14.x)
+  * Minimum Node.js version raised to 18+ (all older versions are EOL)
+  * CI Node.js version matrix: 18, 20, 22
   * Removed CoffeeScript build step
 
  * 0.1.7
