@@ -1,0 +1,7 @@
+.claude/
+docs/
+test/
+src/
+.travis.yml
+Makefile
+Cakefile
