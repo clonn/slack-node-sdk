@@ -1,7 +1,7 @@
 slack-node-sdk
 ==============
 
-[![Build Status](https://travis-ci.org/clonn/slack-node-sdk.svg?branch=master)](https://travis-ci.org/clonn/slack-node-sdk)
+[![Build Status](https://travis-ci.com/clonn/slack-node-sdk.svg?branch=master)](https://travis-ci.com/clonn/slack-node-sdk)
 
 [Slack](https://slack.com/) Node SDK, full support for Webhook and the Slack API, continuously updated.
 
