@@ -6,7 +6,7 @@ var url = require('url');
 var Slack = require('../lib');
 
 var WEBHOOK_URL = 'https://hooks.slack.com/services/T000/B000/XXXX';
-var TIMEOUT_ERROR = {code: 'ESOCKETTIMEDOUT', message: 'Socket timed out'};
+var TIMEOUT_ERROR = (function() { var e = new Error('Socket timed out'); e.code = 'ESOCKETTIMEDOUT'; return e; })();
 
 describe('retry behavior', function() {
   var slack;

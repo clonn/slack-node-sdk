@@ -5,7 +5,7 @@ slack-node-sdk
 
 [Slack](https://slack.com/) Node SDK, full support for Webhook and the Slack API, continuously updated.
 
-Supports both **callback** and **Promise** styles. Requires Node.js 18+.
+**Zero runtime dependencies.** Supports both **callback** and **Promise** styles. Requires Node.js 8+.
 
 ## Install
 
@@ -204,6 +204,12 @@ slack.maxAttempts = 5;
 ```
 
 ## Changelog
+
+ * 0.3.0
+  * Removed all runtime dependencies — uses only native Node.js `http`/`https` modules
+  * Supports Node.js 8 through 22 with identical API
+  * CI Node.js version matrix: 8, 10, 12, 14, 16, 18, 20, 22
+  * Version-adaptive test dependency installation for cross-version compatibility
 
  * 0.2.0
   * Migrated source from CoffeeScript to ES6+ JavaScript

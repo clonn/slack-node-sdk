@@ -2,6 +2,7 @@
 docs/
 test/
 src/
+scripts/
 .travis.yml
 Makefile
 Cakefile

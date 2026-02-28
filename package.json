@@ -1,10 +1,10 @@
 {
   "name": "slack-node",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Slack API library for node",
   "main": "lib/index.js",
   "engines": {
-    "node": ">=18.18.0"
+    "node": ">=8.0.0"
   },
   "scripts": {
     "test": "mocha test/"
@@ -20,10 +20,6 @@
   ],
   "author": "Caesar Chi",
   "license": "MIT",
-  "dependencies": {
-    "request": "^2.88.2",
-    "requestretry": "^8.0.0"
-  },
   "devDependencies": {
     "mocha": "^11.3.0",
     "nock": "^14.0.11",
