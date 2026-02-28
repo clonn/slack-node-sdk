@@ -5,26 +5,23 @@ slack-node-sdk
 
 [Slack](https://slack.com/) Node SDK, full support for Webhook and the Slack API, continuously updated.
 
+Supports both **callback** and **Promise** styles. Works with Node.js 4+ (use `async/await` on Node 8+).
+
 ## Install
 
     npm install slack-node
 
-## Slack Webhook usage
+## Slack Webhook Usage
 
-At first, you have to apply [Slack webhook](https://my.slack.com/services/new/incoming-webhook).
-and copy `webhook url`
+First, apply for a [Slack Incoming Webhook](https://my.slack.com/services/new/incoming-webhook) and copy the webhook URL.
 
-### Webhook usage
-
-Code example:
+### Callback style
 
 ```javascript
 var Slack = require('slack-node');
 
-webhookUri = "__uri___";
-
-slack = new Slack();
-slack.setWebhook(webhookUri);
+var slack = new Slack();
+slack.setWebhook("__your_webhook_url__");
 
 slack.webhook({
   channel: "#general",
@@ -35,23 +32,56 @@ slack.webhook({
 });
 ```
 
-Use icon emoji, you can give a Slack defined emoji, or use image from URL.
-
+### Promise style
 
 ```javascript
 var Slack = require('slack-node');
 
-webhookUri = "__uri___";
+var slack = new Slack();
+slack.setWebhook("__your_webhook_url__");
 
-slack = new Slack();
-slack.setWebhook(webhookUri);
+slack.webhook({
+  channel: "#general",
+  username: "webhookbot",
+  text: "This is posted to #general and comes from a bot named webhookbot."
+}).then(function(response) {
+  console.log(response);
+}).catch(function(err) {
+  console.error(err);
+});
+```
 
-// slack emoji
+### async/await (Node 8+)
+
+```javascript
+const Slack = require('slack-node');
+
+const slack = new Slack();
+slack.setWebhook("__your_webhook_url__");
+
+async function sendMessage() {
+  const response = await slack.webhook({
+    channel: "#general",
+    username: "webhookbot",
+    text: "Hello from async/await!"
+  });
+  console.log(response);
+}
+
+sendMessage();
+```
+
+### Emoji support
+
+You can use a Slack emoji or an image URL:
+
+```javascript
+// Slack emoji
 slack.webhook({
   channel: "#general",
   username: "webhookbot",
   icon_emoji: ":ghost:",
-  text: "test message, test message"
+  text: "test message"
 }, function(err, response) {
   console.log(response);
 });
@@ -60,44 +90,128 @@ slack.webhook({
 slack.webhook({
   channel: "#general",
   username: "webhookbot",
-  icon_emoji: "http://icons.iconarchive.com/icons/rokey/popo-emotions/128/after-boom-icon.png",
-  text: "test message, test message"
+  icon_emoji: "http://example.com/icon.png",
+  text: "test message"
 }, function(err, response) {
   console.log(response);
 });
 ```
 
-Otherwise, you can check usage from [example](https://github.com/clonn/slack-node-sdk/tree/master/example)
+More examples in the [example](https://github.com/clonn/slack-node-sdk/tree/master/example) directory.
 
-## Slack API support
+## Slack API Usage
 
-First you have to apply an API from [SLACK API page](https://api.slack.com/),
+First, get an API token from the [Slack API page](https://api.slack.com/).
 
- * [https://api.slack.com/](https://api.slack.com/)
-
-The method, please reference [Slack API page](https://api.slack.com/)
-
-example code,
+### Callback style
 
 ```javascript
 var Slack = require('slack-node');
-apiToken = "-- api token --";
-
-slack = new Slack(apiToken);
+var slack = new Slack("__your_api_token__");
 
 slack.api("users.list", function(err, response) {
   console.log(response);
 });
 
-slack.api('chat.postMessage', {
-  text:'hello from nodejs',
-  channel:'#general'
-}, function(err, response){
+slack.api("chat.postMessage", {
+  text: "hello from nodejs",
+  channel: "#general"
+}, function(err, response) {
   console.log(response);
 });
 ```
 
+### Promise style
+
+```javascript
+var Slack = require('slack-node');
+var slack = new Slack("__your_api_token__");
+
+slack.api("users.list").then(function(response) {
+  console.log(response);
+}).catch(function(err) {
+  console.error(err);
+});
+
+slack.api("chat.postMessage", {
+  text: "hello from nodejs",
+  channel: "#general"
+}).then(function(response) {
+  console.log(response);
+});
+```
+
+### async/await (Node 8+)
+
+```javascript
+const Slack = require('slack-node');
+const slack = new Slack("__your_api_token__");
+
+async function main() {
+  const users = await slack.api("users.list");
+  console.log(users);
+
+  const result = await slack.api("chat.postMessage", {
+    text: "hello from async/await",
+    channel: "#general"
+  });
+  console.log(result);
+}
+
+main();
+```
+
+### File upload
+
+```javascript
+slack.api("files.upload", {
+  channels: "#general",
+  content: "file content here"
+}, function(err, response) {
+  console.log(response);
+});
+```
+
+## How It Works
+
+Every async method (`api`, `webhook`) supports dual-mode operation:
+
+- **With callback:** passes `(err, response)` to the callback and returns `this` (chainable)
+- **Without callback:** returns a native `Promise`
+
+```javascript
+// Callback mode — returns `this`
+var ret = slack.api("users.list", function(err, response) { });
+console.log(ret === slack); // true
+
+// Promise mode — returns a Promise
+var promise = slack.api("users.list");
+console.log(typeof promise.then); // "function"
+```
+
+No external Promise library is needed. The SDK uses the native `Promise` built into Node.js 4+.
+
+## Configuration
+
+```javascript
+var slack = new Slack("token");
+
+// Custom timeout (default: 10000ms)
+slack.timeout = 5000;
+
+// Custom retry attempts (default: 3)
+slack.maxAttempts = 5;
+```
+
 ## Changelog
+
+ * 0.2.0
+  * Migrated source from CoffeeScript to ES6+ JavaScript
+  * Added dual-mode support: all async methods now return a Promise when no callback is provided
+  * Full backward compatibility — existing callback-based code works without changes
+  * Replaced real API tests with comprehensive mock tests (37 test cases using nock)
+  * Extended CI Node.js version matrix: 4, 6, 8, 10, 12, 14, 16, 18
+  * Removed CoffeeScript build step
 
  * 0.1.7
   * slack-node no longer crashes if Slack returns HTML instead of JSON.
@@ -128,3 +242,7 @@ slack.api('chat.postMessage', {
 
  * 0.0.9
   * pass parameters bug fixed
+
+## License
+
+MIT
